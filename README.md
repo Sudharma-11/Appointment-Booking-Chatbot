@@ -63,7 +63,6 @@ An AI-powered web application for scheduling appointments using natural language
 - `front.py`: Streamlit web application for the user interface
 - `llm.py`: Backend logic for the chatbot, including NLP and database interactions
 - `requirements.txt`: List of Python dependencies
-- `database_setup.sql`: SQL scripts for setting up the database schema
 
 ## Contributing
 
