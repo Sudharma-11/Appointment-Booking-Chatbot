@@ -11,6 +11,7 @@ genai.configure(api_key=API_KEY)
 llm = genai.GenerativeModel("gemini-pro")
 chat = llm.start_chat()
 
+#Prompting the LLM model to behave as an appointment booking chatbot 
 def generate_response(prompt):
     full_prompt = f"""
     You are an AI assistant focused solely on booking appointments and kindly do ask for the age of the user. 
@@ -24,7 +25,8 @@ def generate_response(prompt):
         result = response.candidates[0].content if response.candidates else "Sorry, no response received."
     return result.strip()
 
-def get_db_connection():
+#Connecting the database "appointment-db"
+def get_db_connection(): 
     return mysql.connector.connect(
         host='localhost',
         database='appointment_db',
@@ -32,6 +34,7 @@ def get_db_connection():
         password='Sudharma@11'
     )
 
+#Fetching the available time slots for appointment booking
 def fetch_available_slots():
     try:
         connection = get_db_connection()
@@ -53,16 +56,16 @@ def insert_user_details_and_book_slot(name, email, phone, age, time_slot):
         connection = get_db_connection()
         cursor = connection.cursor()
         
-        # Insert the user details into the `users` table
+        # Inserting the user details into the `users` table
         user_query = """INSERT INTO users (name, email, phone, age) VALUES (%s, %s, %s, %s)"""
         user_values = (str(name), str(email), str(phone), int(age))
         cursor.execute(user_query, user_values)
         connection.commit()
 
-        # Fetch the user_id of the inserted user
+        # Fetching the user_id of the inserted user
         user_id = cursor.lastrowid
 
-        # Update the time_slots table with the selected time slot, current date, and user_id
+        # Updating the time_slots table with the selected time slot, current date, and user_id
         date_today = datetime.now().strftime('%Y-%m-%d')
         slot_query = """UPDATE time_slots SET status = 'booked', user_id = %s, Date = %s WHERE time_slot = %s"""
         slot_values = (user_id, date_today, str(time_slot))
@@ -76,32 +79,33 @@ def insert_user_details_and_book_slot(name, email, phone, age, time_slot):
         if connection.is_connected():
             cursor.close()
             connection.close()
-
+#Using the LLM model to extract name from the user input
 def extract_name(prompt):
     full_prompt = f"""Extract the person's name, including any initials, from the following user input. If an initial (a single uppercase letter) precedes a name, retain the initial and capitalize the first letter of each part of the name (e.g., 'S Hafid'). Ensure proper capitalization where the first letter of each word is uppercase and the rest are lowercase. If no name is found, respond with 'No name found.' User input: {prompt}"""
     response = llm.generate_content(full_prompt)
     return response.text.strip()
-
+#Using the LLM model to extract user's email-id from the user input
 def extract_email(prompt):
     full_prompt = f"""Extract the email address from the following user input. If no email is found, respond with 'No email found.' User input: {prompt}"""
     response = llm.generate_content(full_prompt)
     return response.text.strip()
-
+#Using the regex to extract mobile number from the user input
 def extract_phone(response):
     pattern = r'\b\d{10}\b'
     phone = re.findall(pattern, response)
     return "".join(phone[0]) if phone else None
-
+#Using the regular expression to extract age from the user input
 def extract_age(response):
     pattern = r'\b\d{1,3}\b'
     age = re.findall(pattern, response)
     return int(age[0]) if age else None
-
+#Using the LLM model to extract time slot from the user input
 def extract_time(prompt):
     full_prompts = f"""Available time slots [09:00 AM, 10:00 AM, 11:00 AM, 12:00 PM, 01:00 PM, 02:00 PM, 03:00 PM, 04:00 PM, 05:00 PM, 06:00 PM, 07:00 PM, 08:00 PM, 09:00 PM]. Match the time slots from the list with the user input. User input: {prompt}"""
     response = llm.generate_content(full_prompts)
     return response.text.strip()
 
+#Designing the chatbot to obtain user details and perform appointment booking for the users
 class Chatbot:
     def __init__(self):
         self.user_data = {}
