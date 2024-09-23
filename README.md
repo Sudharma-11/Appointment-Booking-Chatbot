@@ -64,6 +64,9 @@ An AI-powered web application for scheduling appointments using natural language
 - `llm.py`: Backend logic for the chatbot, including NLP and database interactions
 - `requirements.txt`: List of Python dependencies
 
+## DEMO IMAGES
+The sample output images of the appointment booking chatbot are uploaded inside the Demo folder, which is present in the main branch
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
