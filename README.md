@@ -1,4 +1,3 @@
-# Appointment_Booking_Chatbot
 # Appointment Booking Chatbot
 
 An AI-powered web application for scheduling appointments using natural language interaction.
