@@ -40,6 +40,7 @@ An AI-powered web application for scheduling appointments using natural language
 
 5. Set up Google Generative AI:
    - Obtain an API key from the Google AI Platform
+   - Store your API key in a .env file in the project directory (Recommended)
    - Set the API key in `llm.py`:
      ```python
      API_KEY = 'your_api_key_here'
