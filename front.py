@@ -4,8 +4,8 @@ from llm import Chatbot  # Import your Chatbot class
 EXIT_PHRASES = ['exit', 'quit', 'bye', 'thank', 'no thank you', "that's all"]
 
 def main():
-    st.title("Appointment Booking Chatbot")
-
+    st.title("📅 Appointment Booking Chatbot")
+    
     # Initialize session state
     if 'chatbot' not in st.session_state:
         st.session_state.chatbot = Chatbot()
@@ -18,7 +18,6 @@ def main():
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
-
     # Chat input
     if not st.session_state.conversation_ended:
         if prompt := st.chat_input("Type your message here..."):
