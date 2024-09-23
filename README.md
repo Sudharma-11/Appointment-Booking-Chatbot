@@ -2,7 +2,7 @@
 
 An AI-powered web application for scheduling appointments using natural language interaction.
 
-## Features
+# Features
 
 - Natural language interface for appointment booking
 - Automated extraction of user information (name, email, phone, age)
