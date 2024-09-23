@@ -14,7 +14,8 @@ An AI-powered web application for scheduling appointments using natural language
 
 - Python 3.x
 - Streamlit
-- Google Generative AI (Gemini-pro)
+- Google Generative AI (Gemini-pro) [LLM model]
+- NLP
 - MySQL Connector
 - Regular Expressions (re module)
 
