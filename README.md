@@ -12,7 +12,7 @@ An AI-powered web application for scheduling appointments using natural language
 
 ## Technologies Used
 
-- Python 3.x
+- Python 3.12 (64-bit)
 - Streamlit
 - Google Generative AI (Gemini-pro) [LLM model]
 - NLP
