@@ -78,7 +78,7 @@ def insert_user_details_and_book_slot(name, email, phone, age, time_slot):
             connection.close()
 
 def extract_name(prompt):
-    full_prompt = f"""Extract the person's name from the following user input and make the extracted name's first letter must be capital rest all small letters. If no name is found, respond with 'No name found.' User input: {prompt}"""
+    full_prompt = f"""Extract the person's name from the following user input, ensuring that initials (single capital letters) are retained and the first letter of each part of the name is capitalized, while the rest are lowercase. If no name is found, respond with 'No name found.' User input: {prompt}"""
     response = llm.generate_content(full_prompt)
     return response.text.strip()
 
